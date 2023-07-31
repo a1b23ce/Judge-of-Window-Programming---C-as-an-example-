@@ -1,4 +1,4 @@
-﻿#include "2DIndexTransformation.h"
+#include "2DIndexTransformation.h"
 
 bool isInteger(const std::string& s)
 {
@@ -79,28 +79,42 @@ void IndexTrans()
 	element_x2.erase(unique(element_x2.begin(), element_x2.end()), element_x2.end());	//刪除重複元素
 	element_y2.erase(unique(element_y2.begin(), element_y2.end()), element_y2.end());	//刪除重複元素
 
+	int coordinate_x = 1;
 	bool* placed_ELEMENT = new bool[ELEMENT.size() + 5];		//已放置/未放置
 	for (int i = 0; i < ELEMENT.size() + 5; i++)
 		placed_ELEMENT[i] = false;
 	for (int i = 0; i < element_x2.size(); i++)					//垂直線
+	{
+		bool have_element = false;
 		for (int j = 0; j < ELEMENT.size(); j++)
 			if (ELEMENT[j].middle_x <= element_x2[i] && placed_ELEMENT[j] == false)		//如果該元件的中心點在線的左邊，且還沒有x(未被放置)
 			{
 				ELEMENT_2D[j].sequence = ELEMENT[j].sequence;
-				ELEMENT_2D[j].x = i + 1;
+				ELEMENT_2D[j].x = coordinate_x;
 				ELEMENT_2D[j].word = ELEMENT[j].word;
 				placed_ELEMENT[j] = true;						//已放置
+				have_element = true;
 			}
-
+		if (have_element == true)
+			coordinate_x++;
+	}
+		
+	int coordinate_y = 1;
 	for (int i = 0; i < ELEMENT.size() + 5; i++)
 		placed_ELEMENT[i] = false;
 	for (int i = 0; i < element_y2.size(); i++)					//水平線
+	{
+		bool have_element = false;
 		for (int j = 0; j < ELEMENT.size(); j++)
 			if (ELEMENT[j].middle_y <= element_y2[i] && placed_ELEMENT[j] == false)		//如果該元件的中心點在線的上面，且還沒有y(未被放置)
 			{
-				ELEMENT_2D[j].y = i + 1;
+				ELEMENT_2D[j].y = coordinate_y;
 				placed_ELEMENT[j] = true;
+				have_element = true;
 			}
+		if (have_element == true)
+			coordinate_y++;
+	}
 
 	for (int i = 0; i < ELEMENT_2D.size(); i++)
 		output_file << ELEMENT_2D[i].sequence << "@" << ELEMENT_2D[i].x << "@" << ELEMENT_2D[i].y << "@" << ELEMENT_2D[i].word << endl;
