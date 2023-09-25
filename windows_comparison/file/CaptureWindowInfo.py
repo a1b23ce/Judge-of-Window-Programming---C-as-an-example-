@@ -68,7 +68,7 @@ def getControlInfo(control: auto.Control, i: int):
             valueWritten = True
         else:
             valueWritten = False
-    isLegitName = not re.search(r'CustomControl|TableControl|PaneControl|WindowControl|TitleBarControl', repr(control.ControlTypeName))\
+    isLegitName = not re.search(r'ButtonControl|ThumbControl|Header|CustomControl|TableControl|PaneControl|WindowControl|TitleBarControl', repr(control.ControlTypeName))\
                 and not re.search(r'Close|Maximise|Minimise|System', repr(control.Name))
     if not valueWritten and isLegitName:
         wddata+=(repr(control.Name).replace('\'', '@')[:-1])
