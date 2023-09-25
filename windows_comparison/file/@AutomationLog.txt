@@ -1,1 +1,0 @@
-ControlType: 2023-08-12 10:45:25.956 FindWindow.py[26] capture -> Find Control Timeout(10s): {Name: None, ControlType: WindowControl}
