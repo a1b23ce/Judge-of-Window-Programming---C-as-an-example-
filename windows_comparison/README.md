@@ -1,4 +1,4 @@
-20230812
+2023/08/12
 
 現在可以不用到windows_comparision_model.py、windows_comparision_examinee.py這兩個檔案改Window_Name
 
@@ -8,6 +8,6 @@
 
 -------------------------------
 
-20230925
+2023/09/25
 
 更新馮定安的程式，並修改原本的程式
