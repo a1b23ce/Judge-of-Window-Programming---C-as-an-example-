@@ -51,6 +51,7 @@ def isExist(cur_name):
 def getWinData():
     wdName, proc = getTargetWindowName()
     control = auto.WindowControl(searchDepth=1, Name=wdName)
+    control.CaptureToImage("./cap.png")
     i = 1
     for c, d in auto.WalkControl(control, True, 0xFFFFFFFF):
         i = getControlInfo(c, i)
@@ -62,7 +63,7 @@ def getControlInfo(control: auto.Control, i: int):
     wddata = repr(i)+'@'+re.sub(r'Rect|\(|\)|\[.*?\]', '', wddata.replace(',', '@'))
     supportedPatterns = list(filter(lambda t: t[0], ((control.GetPattern(id_), name) for id_, name in auto.PatternIdNames.items())))
     for pt, name in supportedPatterns:
-        print(name)
+        # print(name)
         if isinstance(pt, auto.ValuePattern) :
             wddata+=(repr(pt.Value).replace('\'', '@')[:-1])
             valueWritten = True
