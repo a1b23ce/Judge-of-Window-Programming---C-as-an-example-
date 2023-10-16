@@ -1,0 +1,26 @@
+資料夾：
+file:存放運行時必要的檔案
+	CaptureWindowInfo.py			:抓取視窗中的元件屬性(座標與文字內容)，並輸出原始影像檔
+	TwoDIndexTransformation_for_model.py	:將model(標準答案)的元件座標做二維轉換
+	TwoDIndexTransformation_for_examinee.py	:重新排序編號，使examinee與model相同編號的元件的文字相同，並將examinee(考生答案)的元件座標做二維轉換
+	DirectionMethod(2D_LCS)			:使用2D LCS，比對model與examinee的元件相似度。
+	DrawTable_model.py			:根據model二維轉換後的資料與2D LCS得出的正確元件，畫出座標圖並圈出正確的元件
+	DrawTable_examinee.py			:根據examinee二維轉換後的資料與2D LCS得出的正確元件，畫出座標圖並圈出正確的元件
+	MarkOriginalImage.py			:根據原始影像檔、一開始抓取到的元件屬性，與2D LCS得出的正確元件，在原始影像檔中圈出正確的元件
+
+model:存放標準檔案
+examinee:存放考生資料夾，考生資料夾名稱代表考生編號，考生資料夾中存放考生檔案
+
+
+檔案：
+1060307.SM(非必要)		:運行視窗時，視窗可能需要讀取檔案，此處放需要讀取的檔案
+windows_comparison_model.py	:運行CaptureWindowInfo.py和TwoDIndexTransformation_for_model.py
+windows_comparison_examinee.py	:運行CaptureWindowInfo.py、TwoDIndexTransformation_for_examinee.py、DirectionMethod(2D_LCS).py、DrawTable_model.py、DrawTable_examinee.py、MarkOriginalImage.py
+windows_comparison_UI.py	:UI介面，按鈕"運行標準答案"是運行windows_comparison_model.py，按鈕"運行考生答案"是運行windows_comparison_examinee.py。
+Xclean.py			:全部運行完後且看完結果後，可以運行此檔案來刪除中間檔(如圖片)。
+
+
+如何使用視窗批改系統：
+	方法一：直接運行windows_comparison_UI.py，開啟UI介面，點選"運行標準答案"，再點選"運行考生答案"，等到運行完後，就可以直接查看結果。
+	方法二：運行windows_comparison_model.py，再運行windows_comparison_examinee.py，最後再去UI介面查看結果。
+注意：目前方法一運行速度很慢，想要快一點就使用方法二。
