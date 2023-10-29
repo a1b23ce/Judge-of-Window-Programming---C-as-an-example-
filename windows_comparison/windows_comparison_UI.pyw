@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import PhotoImage
+from tkinter import Event
 import subprocess
 from PIL import Image, ImageTk
 import importlib
@@ -26,17 +27,14 @@ class MainFrame(tk.Frame):
 		examinee = 'windows_comparison_examinee.py'
 		
 		# 更改按鈕行為與內容
-		button1 = tk.Button(self, text="運行標準答案", width=15, height=2, command=lambda: self.execute_and_check(model, 1))
-		button2 = tk.Button(self, text="運行考生答案", width=15, height=2, command=lambda: self.execute_and_check(examinee, 2))
+		button1 = tk.Button(self, text="生成批改文件", width=15, height=2, command=lambda: self.execute_and_check(model, 1))
+		button2 = tk.Button(self, text="批改考生視窗", width=15, height=2, command=lambda: self.execute_and_check(examinee, 2))
 		button3 = tk.Button(self, text="顯示結果", width=15, height=2, command=self.show_capture_result)
 		
-#		button1.pack(side="top", padx=10, pady=80)
 		button1.place(relx=0.425, rely=0.3, relwidth=0.15, relheight=0.1)
 		button1.config(font=("微軟黑正體", 16))
-#		button2.pack(side="top", padx=10, pady=0)
 		button2.place(relx=0.425, rely=0.5, relwidth=0.15, relheight=0.1)
 		button2.config(font=("微軟黑正體", 16))
-#		button3.pack(side="top", padx=10, pady=80)
 		button3.place(relx=0.425, rely=0.7, relwidth=0.15, relheight=0.1)
 		button3.config(font=("微軟黑正體", 16))
 		
@@ -64,15 +62,15 @@ class MainFrame(tk.Frame):
 				if result.returncode == 0:
 					print(f"{file_name} executed successfully.")
 					if NUM==1:
-						self.output_label1.config(text=f"執行成功")
+						self.output_label1.config(text=f"生成完畢")
 					elif NUM==2:
-						self.output_label2.config(text=f"執行成功")
+						self.output_label2.config(text=f"批改完畢")
 				else:
 					print(f"Error executing {file_name}. Return code: {result.returncode}")
 					if NUM==1:
-						self.output_label1.config(text=f"執行失敗")
+						self.output_label1.config(text=f"生成失敗")
 					elif NUM==2:
-						self.output_label2.config(text=f"執行失敗")
+						self.output_label2.config(text=f"批改失敗")
 				print(stdout)
 				print(stderr)
 				
@@ -288,7 +286,8 @@ class App(tk.Tk):
 	def __init__(self, *args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
 		self.geometry("1280x720")  # Set the window size
-
+		self.title("批改視窗程式")
+		
 		container = tk.Frame(self)
 		container.pack(side="top", fill="both", expand=True)
 
@@ -303,16 +302,19 @@ class App(tk.Tk):
 			frame.grid(row=0, column=0, sticky="nsew")
 
 		self.show_frame(MainFrame)
+		
+		# 設定F11鍵為全螢幕切換鍵
+		self.bind("<F11>", self.toggle_fullscreen)
 
 	def show_frame(self, cont):
 		frame = self.frames[cont]
 		frame.tkraise()
+		
+	def toggle_fullscreen(self, event: Event):
+		self.attributes("-fullscreen", not self.attributes("-fullscreen"))
 
 
 
 if __name__ == "__main__":
 	app = App()
 	app.mainloop()
-	
-
-
