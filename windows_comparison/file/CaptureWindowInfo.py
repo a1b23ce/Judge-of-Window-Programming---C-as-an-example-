@@ -84,8 +84,11 @@ def getControlInfo(control: auto.Control, i: int, wdInfo):
 
     # collect container type of object
     if not valueWritten and repr(control.AutomationId) != '' and control.ControlTypeName == 'ListControl':
-        wddata+= 'EMPTY_OBJECT'
-        autoIdWritten = True
+        if control.GetFirstChildControl(): #ignore the list container if it's not empty
+            autoIdWritten = True    
+        else:
+            wddata+= 'EMPTY_OBJECT'
+            autoIdWritten = True
     else:
         autoIdWritten = False
         
