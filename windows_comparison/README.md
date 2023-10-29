@@ -86,3 +86,7 @@ CaptureWindowInfo.py需要修正。
 更新CaptureWindowInfo.py，目前讀取listbox還是有些小問題，讀取有內容的listbox最下方會讀取到EMPTY_OBJECT。
 
 更新UI介面，現在介面被調成1280x720，主頁面執行完程式後會顯示"執行成功"，結果頁面的考生名單現在可以用滑鼠滾輪往下滑。
+
+更新CaptureWindowInfo.py，目前沒有問題
+
+更新UI介面，現在按F11可以進入或退出全螢幕。主頁面的按鈕文字更改。
